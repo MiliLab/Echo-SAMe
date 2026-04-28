@@ -1,15 +1,34 @@
 <div align="center">
 
-# SAMe: A Semantic Anatomy Mapping Engine for Robotic Ultrasound
+<h2 align="center"><strong>SAMe: A Semantic Anatomy Mapping Engine for Robotic Ultrasound</strong></h2>
 
-[![Status](https://img.shields.io/badge/Status-Under_Review-orange)]()
-[![arXiv](https://img.shields.io/badge/arXiv-TBD-b31b1b.svg)]()
-[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+<div align="center">
+<h5>
+<em>Jing Zhang<sup>1,*,†</sup>, Duojie Chen<sup>1,2,*</sup>, Wentao Jiang<sup>1</sup>, Zihan Lou<sup>1</sup>, Jianxin Liu<sup>3</sup>, Xinwu Cui<sup>4</sup>, Qinghong Zhao<sup>5</sup>, Bo Du<sup>1,†</sup>, Christoph F. Dietrich<sup>6</sup>, Dacheng Tao<sup>7,†</sup></em>
+    <br><br>
+        <sup>1</sup> School of Computer Science, Wuhan University, China,<br/>
+        <sup>2</sup> Hubei Center for Applied Mathematics, Wuhan University, China,<br/>
+        <sup>3</sup> Department of Ultrasound, The Central Hospital of Wuhan, China,<br/>
+        <sup>4</sup> Department of Medical Ultrasound, Tongji Hospital, Tongji Medical College, Huazhong University of Science and Technology, China,<br/>
+        <sup>5</sup> Department of Ultrasound in Medicine, Renmin Hospital of Wuhan University, China,<br/>
+        <sup>6</sup> Department General Internal Medicine (DAIM), Hospitals Hirslanden Bern Beau Site, Salem and Permanence, Bern, Switzerland,<br/>
+        <sup>7</sup> College of Computing and Data Science, Nanyang Technological University, Singapore<br/>
+</h5>
+<h5>
+<sup>*</sup> Equal contribution, <sup>†</sup> Corresponding author
+</h5>
+</div>
+
+<h5 align="center">
+<a href=""><img src="https://img.shields.io/badge/Status-Under_Review-orange"></a>
+<a href=""><img src="https://img.shields.io/badge/arXiv-TBD-b31b1b.svg"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"></a>
+<a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-blue"></a>
+</h5>
 
 **A plug-in anatomical prior layer that grounds clinical intent and a single external body image into patient-specific anatomical hypotheses and control-facing 6-DoF probe initialization cues.**
 
-[Introduction](#-introduction) | [Key Features](#-key-features) | [Method Overview](#-method-overview) | [Clinical Semantics Grounding](#-clinical-semantics-grounding) | [Anatomical Prior Learning](#-anatomical-prior-learning) | [Main Results](#-main-results) | [Getting Started](#-getting-started) | [Release Status](#-release-status) | [Citation](#-citation)
+[Introduction](#-introduction) | [Key Features](#-key-features) | [Method Overview](#-method-overview) | [Clinical Semantics Grounding (CSG)](#-clinical-semantics-grounding-csg) | [Anatomical Representation Instantiation (ARI)](#-anatomical-representation-instantiation-ari) | [Actionable Target Initialization (ATI)](#-actionable-target-initialization-ati) | [Main Results](#-main-results) | [Getting Started](#-getting-started) | [Release Status](#-release-status) | [Citation](#-citation)
 
 </div>
 
@@ -63,39 +82,40 @@ SAMe is organized into three coupled components that form a **target-to-anatomy-
 | **ARI** | Where is the target anatomy? | Single RGB body image | Patient-specific anatomical hypothesis | Skeleton-conditioned organ instantiation with uncertainty |
 | **ATI** | How should scanning begin? | Anatomical hypothesis | Candidate contacts, target rays, 6-DoF probe states | Contact-aware initialization for downstream control |
 
-Importantly, SAMe is **not** a full autonomous scanning system. It is an explicit anatomical prior layer designed to improve initialization and remain compatible with downstream control and online posterior updating.
+SAMe is **not** a full autonomous scanning system. It is an explicit anatomical prior layer designed to improve initialization and remain compatible with downstream control.
 
 ---
 
 ## 🔍 Clinical Semantics Grounding (CSG)
 
-CSG grounds under-specified clinical complaints into explicit organ- and anatomy-level targets through a semantic prior backed by structured clinical retrieval.
-
-The grounding process is supported by a structured semantic prior (SAMe-DB) constructed from curated clinical text sources, organized as a hierarchical knowledge base for retrieval-augmented grounding.
+CSG grounds under-specified clinical complaints into explicit organ- and anatomy-level targets via a structured semantic prior.
 
 <div align="center">
   <img src="assets/same-semantic-db.png" alt="SAMe semantic prior database and RAG results" width="100%">
   <p><em>Semantic prior database and retrieval-augmented grounding performance.</em></p>
 </div>
 
-Retrieval support consistently improved organ- and location-level grounding, especially at the anatomy level where outputs become directly useful for downstream instantiation and initialization.
-
 ---
 
-## 🏗️ Anatomical Prior Learning
+## 🏗️ Anatomical Representation Instantiation (ARI)
+
+ARI instantiates a patient-specific anatomical representation from a single RGB body image through skeleton-conditioned organ placement with uncertainty estimation.
 
 <div align="center">
   <img src="assets/same-organ-prior.png" alt="SAMe organ-layer modeling pipeline" width="100%">
   <p><em>Offline organ-layer modeling and rig-anchored prior learning used to support patient-specific anatomical instantiation.</em></p>
 </div>
 
-SAMe builds a canonical organ-layer representation from CT-derived skin, skeletal, and organ meshes. These assets are registered into a rig-consistent body frame, unposed into a shared anatomical space, and decomposed into compact organ-wise descriptors.
+---
 
-This keeps the anatomical state:
+## 🎯 Actionable Target Initialization (ATI)
 
-* **Explicit** — not hidden inside dense latent fields,
-* **Lightweight** — downstream inference predicts low-dimensional, control-relevant quantities,
-* **Robot-compatible by construction** — output representation is already organized around geometry needed for initialization.
+ATI converts internal target hypotheses into candidate surface contacts, target-directed entry rays, and contact-aware 6-DoF probe initialization states for downstream robotic execution.
+
+<div align="center">
+  <img src="assets/real-robot.png" alt="Real-robot setup" width="88%">
+  <p><em>Representative real-robot setup and anatomy-aware liver target placement used in the study.</em></p>
+</div>
 
 ---
 
@@ -111,11 +131,6 @@ This keeps the anatomical state:
 | **SAMe (Ours)** | **✅ Skeleton-conditioned** | **Single RGB** | **✅** | **✅** |
 
 ### Quantitative Results
-
-<div align="center">
-  <img src="assets/2.png" alt="Real-robot setup" width="88%">
-  <p><em>Representative real-robot setup and anatomy-aware liver target placement used in the study.</em></p>
-</div>
 
 | Component | Evaluation Setting | Key Result |
 | :--- | :--- | :--- |
