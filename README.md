@@ -34,6 +34,14 @@
 
 ---
 
+## 📅 Release Status
+
+**2026.04**
+* Repository structure and overview materials published.
+* Manuscript under review.
+
+---
+
 ## 📖 Introduction
 
 Robotic ultrasound has made substantial progress in local image-driven control, contact regulation, and view optimization. However, current systems still lack an explicit anatomical prior layer for deciding **what to scan, where to start, and how to place the probe before local refinement begins**.
@@ -47,7 +55,7 @@ Robotic ultrasound has made substantial progress in local image-driven control, 
 
 ---
 
-## 🚀 Key Features
+## 🚀 Highlights
 
 * **🧠 Structured Anatomy Mapping:** Decomposed into **3** coupled modules (CSG → ARI → ATI) spanning complaint grounding to probe initialization.
 * **📷 Single RGB Input:** One monocular external body image — no preoperative CT/MRI and no additional registration sweep at scan time.
@@ -148,27 +156,7 @@ Additional findings include:
 
 ## 🚀 Getting Started
 
-### Installation
-
-```bash
-git clone https://github.com/your-org/Echo-SAMe.git
-cd Echo-SAMe
-```
-
-
----
-
-## 📅 Release Status
-
-**2026.04**
-* Repository structure and overview materials published.
-* Manuscript under review.
-
-### Currently Available
-* Project overview and visual materials
-* Method summary aligned with the manuscript
-
-Updates will be added here as the release package is finalized.
+Coming soon...
 
 ---
 
