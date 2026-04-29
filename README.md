@@ -21,7 +21,7 @@
 
 <h5 align="center">
 <a href=""><img src="https://img.shields.io/badge/Status-Under_Review-orange"></a>
-<a href=""><img src="https://img.shields.io/badge/arXiv-TBD-b31b1b.svg"></a>
+<a href="https://arxiv.org/abs/2604.25646"><img src="https://img.shields.io/badge/arXiv-2604.25646-b31b1b.svg"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg"></a>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8%2B-blue"></a>
 </h5>
